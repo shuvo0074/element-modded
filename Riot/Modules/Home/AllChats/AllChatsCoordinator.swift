@@ -34,7 +34,7 @@ class AllChatsCoordinator: NSObject, SplitViewMasterCoordinatorProtocol {
     // MARK: Properties
     
     // MARK: Private
-    
+    private var loadingIndicator: UserIndicator?
     private let parameters: AllChatsCoordinatorParameters
     private let activityIndicatorPresenter: ActivityIndicatorPresenterType
     private let indicatorPresenter: UserIndicatorTypePresenterProtocol
@@ -102,9 +102,19 @@ class AllChatsCoordinator: NSObject, SplitViewMasterCoordinatorProtocol {
     func start() {
         self.start(with: nil)
     }
+
+    /// Show an activity indicator whilst loading.
+    private func startLoading() {
+        loadingIndicator = indicatorPresenter.present(.loading(label: VectorL10n.loading, isInteractionBlocking: true))
+    }
+    
+    /// Hide the currently displayed activity indicator.
+    private func stopLoading() {
+        loadingIndicator = nil
+    }
         
     func start(with spaceId: String?) {
-                
+        startLoading()
         // If start has been done once do not setup view controllers again
         if self.hasStartedOnce == false {
             let allChatsViewController = AllChatsViewController.instantiate()
