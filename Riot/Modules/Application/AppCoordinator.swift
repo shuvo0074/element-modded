@@ -54,7 +54,7 @@ final class AppCoordinator: NSObject, AppCoordinatorType {
     fileprivate weak var sideMenuCoordinator: SideMenuCoordinatorType?
     
     private let userSessionsService: UserSessionsService
-        
+    private let authenticationService: AuthenticationService
     /// Main user Matrix session
     private var mainMatrixSession: MXSession? {
         return self.userSessionsService.mainUserSession?.matrixSession
@@ -74,6 +74,9 @@ final class AppCoordinator: NSObject, AppCoordinatorType {
         self.rootRouter = router
         self.customSchemeURLParser = CustomSchemeURLParser()
         self.userSessionsService = UserSessionsService.shared
+        self.authenticationService = AuthenticationService.shared
+
+
         
         super.init()
         
@@ -188,7 +191,7 @@ final class AppCoordinator: NSObject, AppCoordinatorType {
     }
     
     private func showSplitView() {
-        let coordinatorParameters = SplitViewCoordinatorParameters(router: self.rootRouter, userSessionsService: self.userSessionsService, appNavigator: self.appNavigator)
+        let coordinatorParameters = SplitViewCoordinatorParameters(router: self.rootRouter, userSessionsService: self.userSessionsService, appNavigator: self.appNavigator, authenticationService: self.authenticationService)
                         
         let splitViewCoordinator = SplitViewCoordinator(parameters: coordinatorParameters)
         splitViewCoordinator.delegate = self

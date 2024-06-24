@@ -67,7 +67,7 @@ class AllChatsViewController: HomeViewController {
             set(tableHeadeView: bannerView)
         }
     }
-    
+
     private var isOnboardingCoordinatorPreparing: Bool = false
 
     private var theme: Theme {
@@ -161,7 +161,8 @@ class AllChatsViewController: HomeViewController {
         // Check whether we're not logged in
         let authIsShown: Bool
         if MXKAccountManager.shared().accounts.isEmpty {
-            showOnboardingFlow()
+            // showOnboardingFlow()
+
             authIsShown = true
         } else {
             // Display a login screen if the account is soft logout

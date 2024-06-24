@@ -24,11 +24,13 @@ class SplitViewCoordinatorParameters {
     let router: RootRouterType
     let userSessionsService: UserSessionsService
     let appNavigator: AppNavigatorProtocol
+    let authenticationService: AuthenticationService
     
-    init(router: RootRouterType, userSessionsService: UserSessionsService, appNavigator: AppNavigatorProtocol) {
+    init(router: RootRouterType, userSessionsService: UserSessionsService, appNavigator: AppNavigatorProtocol, authenticationService: AuthenticationService) {
         self.router = router
         self.userSessionsService = userSessionsService
         self.appNavigator = appNavigator
+        self.authenticationService = authenticationService
     }
 }
 
@@ -77,6 +79,7 @@ final class SplitViewCoordinator: NSObject, SplitViewCoordinatorType {
         let splitViewController = RiotSplitViewController()
         splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController = splitViewController
+        let authenticationService: AuthenticationService
     }
     
     // MARK: - Public methods
@@ -174,7 +177,7 @@ final class SplitViewCoordinator: NSObject, SplitViewCoordinatorType {
     }
     
     private func createAllChatsCoordinator() -> AllChatsCoordinator {
-        let coordinatorParameters = AllChatsCoordinatorParameters(userSessionsService: self.parameters.userSessionsService, appNavigator: self.parameters.appNavigator)
+        let coordinatorParameters = AllChatsCoordinatorParameters(userSessionsService: self.parameters.userSessionsService, appNavigator: self.parameters.appNavigator, authenticationService: self.parameters.authenticationService)
         
         let coordinator = AllChatsCoordinator(parameters: coordinatorParameters)
         coordinator.delegate = self

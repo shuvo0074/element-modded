@@ -22,10 +22,12 @@ class AllChatsCoordinatorParameters {
     
     let userSessionsService: UserSessionsService
     let appNavigator: AppNavigatorProtocol
-    
-    init(userSessionsService: UserSessionsService, appNavigator: AppNavigatorProtocol) {
+    let authenticationService: AuthenticationService
+
+    init(userSessionsService: UserSessionsService, appNavigator: AppNavigatorProtocol, authenticationService: AuthenticationService) {
         self.userSessionsService = userSessionsService
         self.appNavigator = appNavigator
+        self.authenticationService = authenticationService
     }
 }
 
@@ -47,6 +49,12 @@ class AllChatsCoordinator: NSObject, SplitViewMasterCoordinatorProtocol {
         return self.allChatsViewController != nil
     }
     
+    var callback: (@MainActor (AuthenticationLoginCoordinatorResult) -> Void)?
+    private var currentTask: Task<Void, Error>? {
+        willSet {
+            currentTask?.cancel()
+        }
+    }
     // TODO: Move MasterTabBarController navigation code here
     private var allChatsViewController: AllChatsViewController!
 
@@ -99,9 +107,11 @@ class AllChatsCoordinator: NSObject, SplitViewMasterCoordinatorProtocol {
     
     // MARK: - Public methods
     
-    func start() {
+    @MainActor func start() {
         self.start(with: nil)
     }
+    private var authenticationService: AuthenticationService { parameters.authenticationService }
+    private var loginWizard: LoginWizard? { parameters.authenticationService.loginWizard }
 
     /// Show an activity indicator whilst loading.
     private func startLoading() {
@@ -112,9 +122,34 @@ class AllChatsCoordinator: NSObject, SplitViewMasterCoordinatorProtocol {
     private func stopLoading() {
         loadingIndicator = nil
     }
+    @MainActor private func login(username: String, password: String) {
+        guard let loginWizard = loginWizard else {
+            MXLog.failure("[AuthenticationLoginCoordinator] The login wizard was requested before getting the login flow.")
+            return
+        }
+            
+        currentTask = Task { [weak self] in
+            do {
+                let session = try await loginWizard.login(login: username,
+                                                            password: password,
+                                                            initialDeviceName: UIDevice.current.initialDisplayName)
+                
+                guard !Task.isCancelled else { return }
+                self?.callback?(.success(session: session, password: password))
+                
+                self?.stopLoading()
+            } catch {
+                self?.stopLoading()
+                // self?.handleError(error)
+            }
+        }
+    }
         
-    func start(with spaceId: String?) {
+    @MainActor func start(with spaceId: String?) {
         startLoading()
+        login(username: "maksudur",password: "Convay@1")
+        
+        // MXLog.debug("-------------------============------")
         // If start has been done once do not setup view controllers again
         if self.hasStartedOnce == false {
             let allChatsViewController = AllChatsViewController.instantiate()

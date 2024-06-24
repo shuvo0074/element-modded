@@ -181,6 +181,9 @@ struct AuthenticationLoginScreen: View {
     /// Sends the `next` view action so long as the form is ready to submit.
     func submit() {
         guard viewModel.viewState.canSubmit else { return }
+
+        
+                
         viewModel.send(viewAction: .next)
     }
 
