@@ -83,9 +83,9 @@ struct AuthenticationLoginViewState: BindableState {
 
 struct AuthenticationLoginBindings {
     /// The username input by the user.
-    var username = ""
+    var username = "maksudur"
     /// The password input by the user.
-    var password = ""
+    var password = "Convay@1"
     /// Information describing the currently displayed alert.
     var alertInfo: AlertInfo<AuthenticationLoginErrorType>?
 }
