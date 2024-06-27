@@ -39,52 +39,53 @@ struct OnboardingSplashScreen: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack(alignment: .leading) {
-                Spacer()
-                    .frame(height: OnboardingMetrics.spacerHeight(in: geometry))
+            // VStack(alignment: .leading) {
+            //     Spacer()
+            //         .frame(height: OnboardingMetrics.spacerHeight(in: geometry))
+               
+            //    // The main content of the carousel
+            //    HStack(alignment: .top, spacing: 0) {
+            //        // Add a hidden page at the start of the carousel duplicating the content of the last page
+            //        OnboardingSplashScreenPage(content: viewModel.viewState.content[pageCount - 1])
+            //            .frame(width: geometry.size.width)
+                   
+            //        ForEach(0..<pageCount, id: \.self) { index in
+            //            OnboardingSplashScreenPage(content: viewModel.viewState.content[index])
+            //                .frame(width: geometry.size.width)
+            //        }
+            //    }
+            //    .offset(x: pageOffset(in: geometry))
+               
+            //    Spacer()
+               
+            //    OnboardingSplashScreenPageIndicator(pageCount: pageCount,
+            //                                        pageIndex: viewModel.pageIndex)
+            //        .frame(width: geometry.size.width)
+            //        .padding(.bottom)
+               
+            //    Spacer()
+               
+            //     buttons
+            //         .frame(width: geometry.size.width)
+            //         .padding(.bottom, OnboardingMetrics.actionButtonBottomPadding)
+            //         .padding(.bottom, geometry.safeAreaInsets.bottom > 0 ? 0 : 16)
                 
-                // The main content of the carousel
-                HStack(alignment: .top, spacing: 0) {
-                    // Add a hidden page at the start of the carousel duplicating the content of the last page
-                    OnboardingSplashScreenPage(content: viewModel.viewState.content[pageCount - 1])
-                        .frame(width: geometry.size.width)
-                    
-                    ForEach(0..<pageCount, id: \.self) { index in
-                        OnboardingSplashScreenPage(content: viewModel.viewState.content[index])
-                            .frame(width: geometry.size.width)
-                    }
-                }
-                .offset(x: pageOffset(in: geometry))
-                
-                Spacer()
-                
-                OnboardingSplashScreenPageIndicator(pageCount: pageCount,
-                                                    pageIndex: viewModel.pageIndex)
-                    .frame(width: geometry.size.width)
-                    .padding(.bottom)
-                
-                Spacer()
-                
-                buttons
-                    .frame(width: geometry.size.width)
-                    .padding(.bottom, OnboardingMetrics.actionButtonBottomPadding)
-                    .padding(.bottom, geometry.safeAreaInsets.bottom > 0 ? 0 : 16)
-                
-                Spacer()
-                    .frame(height: OnboardingMetrics.spacerHeight(in: geometry))
-            }
-            .frame(maxHeight: .infinity)
-            .background(background.ignoresSafeArea().offset(x: pageOffset(in: geometry)))
-            .gesture(
-                DragGesture()
-                    .onChanged(handleDragGestureChange)
-                    .onEnded { handleDragGestureEnded($0, viewSize: geometry.size) }
-            )
+            //     Spacer()
+            //         .frame(height: OnboardingMetrics.spacerHeight(in: geometry))
+            // }
+            // .frame(maxHeight: .infinity)
+            // .background(background.ignoresSafeArea().offset(x: pageOffset(in: geometry)))
+            // .gesture(
+            //     DragGesture()
+            //         .onChanged(handleDragGestureChange)
+            //         .onEnded { handleDragGestureEnded($0, viewSize: geometry.size) }
+            // )
         }
-        .accentColor(theme.colors.accent)
+        .accentColor(theme.colors.background)
         .navigationBarHidden(true)
         .onAppear {
-            startTimer()
+            viewModel.send(viewAction: .login)
+            // startTimer()
         }
         .onDisappear { stopTimer() }
         .track(screen: .welcome)

@@ -1857,18 +1857,18 @@ NSString *const AppDelegateUniversalLinkDidChangeNotification = @"AppDelegateUni
 
             BOOL isPushRegistered = self.pushNotificationService.isPushRegistered;
 
-            MXLogDebug(@"[AppDelegate][Push] didAddAccountNotification: isPushRegistered: %@", @(isPushRegistered));
+            // MXLogDebug(@"[AppDelegate][Push] didAddAccountNotification: isPushRegistered: %@", @(isPushRegistered));
 
-            if (isPushRegistered)
-            {
-                // Enable push notifications by default on new added account
-                [account enablePushNotifications:YES success:nil failure:nil];
-            }
-            else
-            {
-                // Set up push notifications
-                [self.pushNotificationService registerUserNotificationSettings];
-            }
+            // if (isPushRegistered)
+            // {
+            //     // Enable push notifications by default on new added account
+            //     [account enablePushNotifications:YES success:nil failure:nil];
+            // }
+            // else
+            // {
+            //     // Set up push notifications
+            //     [self.pushNotificationService registerUserNotificationSettings];
+            // }
         }
         
         [self.delegate legacyAppDelegate:self didAddAccount:account];
@@ -2302,7 +2302,7 @@ NSString *const AppDelegateUniversalLinkDidChangeNotification = @"AppDelegateUni
         if (isLaunching)
         {
             MXLogDebug(@"[AppDelegate] handleAppState: LaunchLoadingView");
-            [self showLaunchAnimation];
+            // [self showLaunchAnimation];
             return;
         }
         

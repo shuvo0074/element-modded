@@ -854,7 +854,7 @@ extension AllChatsViewController: SplitViewMasterViewControllerProtocol {
             return
         }
 
-        presentVerifyCurrentSessionAlert(with: session)
+        // presentVerifyCurrentSessionAlert(with: session)
     }
 
     /// Verify others device if needed.

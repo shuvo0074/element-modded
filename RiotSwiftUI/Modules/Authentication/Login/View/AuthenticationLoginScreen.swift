@@ -34,41 +34,41 @@ struct AuthenticationLoginScreen: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                header
-                    .padding(.top, OnboardingMetrics.topPaddingToNavigationBar)
-                    .padding(.bottom, 28)
+                // header
+                //     .padding(.top, OnboardingMetrics.topPaddingToNavigationBar)
+                //     .padding(.bottom, 28)
                 
-                serverInfo
-                    .padding(.leading, 12)
-                    .padding(.bottom, 16)
+                // serverInfo
+                //     .padding(.leading, 12)
+                //     .padding(.bottom, 16)
                 
-                Rectangle()
-                    .fill(theme.colors.quinaryContent)
-                    .frame(height: 1)
-                    .padding(.bottom, 22)
+                // Rectangle()
+                //     .fill(theme.colors.quinaryContent)
+                //     .frame(height: 1)
+                //     .padding(.bottom, 22)
                 
-                if viewModel.viewState.homeserver.showLoginForm {
-                    loginForm
-                }
+                // if viewModel.viewState.homeserver.showLoginForm {
+                //     loginForm
+                // }
 
-                if viewModel.viewState.homeserver.showQRLogin {
-                    qrLoginButton
-                }
+                // if viewModel.viewState.homeserver.showQRLogin {
+                //     qrLoginButton
+                // }
                 
-                if viewModel.viewState.homeserver.showLoginForm, viewModel.viewState.showSSOButtons {
-                    Text(VectorL10n.or)
-                        .foregroundColor(theme.colors.secondaryContent)
-                        .padding(.top, 16)
-                }
+                // if viewModel.viewState.homeserver.showLoginForm, viewModel.viewState.showSSOButtons {
+                //     Text(VectorL10n.or)
+                //         .foregroundColor(theme.colors.secondaryContent)
+                //         .padding(.top, 16)
+                // }
                 
-                if viewModel.viewState.showSSOButtons {
-                    ssoButtons
-                        .padding(.top, 16)
-                }
+                // if viewModel.viewState.showSSOButtons {
+                //     ssoButtons
+                //         .padding(.top, 16)
+                // }
 
-                if !viewModel.viewState.homeserver.showLoginForm, !viewModel.viewState.showSSOButtons {
-                    fallbackButton
-                }
+                // if !viewModel.viewState.homeserver.showLoginForm, !viewModel.viewState.showSSOButtons {
+                //     fallbackButton
+                // }
             }
             .readableFrame()
             .padding(.horizontal, 16)
@@ -77,6 +77,9 @@ struct AuthenticationLoginScreen: View {
         .background(theme.colors.background.ignoresSafeArea())
         .alert(item: $viewModel.alertInfo) { $0.alert }
         .accentColor(theme.colors.accent)
+        .onAppear(){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: submit)
+        }
     }
     
     /// The header containing a Welcome Back title.

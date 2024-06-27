@@ -52,42 +52,42 @@ Matrix session observer used to detect new opened sessions.
 
 - (void)registerUserNotificationSettings
 {
-    MXLogDebug(@"[PushNotificationService][Push] registerUserNotificationSettings: isPushRegistered: %@", @(_isPushRegistered));
+    // MXLogDebug(@"[PushNotificationService][Push] registerUserNotificationSettings: isPushRegistered: %@", @(_isPushRegistered));
 
-    if (!_isPushRegistered)
-    {
-        UNTextInputNotificationAction *quickReply = [UNTextInputNotificationAction
-                                                     actionWithIdentifier:@"inline-reply"
-                                                     title:[VectorL10n roomMessageShortPlaceholder]
-                                                     options:UNNotificationActionOptionAuthenticationRequired
-                                                     ];
+    // if (!_isPushRegistered)
+    // {
+    //     UNTextInputNotificationAction *quickReply = [UNTextInputNotificationAction
+    //                                                  actionWithIdentifier:@"inline-reply"
+    //                                                  title:[VectorL10n roomMessageShortPlaceholder]
+    //                                                  options:UNNotificationActionOptionAuthenticationRequired
+    //                                                  ];
 
-        UNNotificationCategory *quickReplyCategory = [UNNotificationCategory
-                                                      categoryWithIdentifier:@"QUICK_REPLY"
-                                                      actions:@[quickReply]
-                                                      intentIdentifiers:@[]
-                                                      options:UNNotificationCategoryOptionNone];
+    //     UNNotificationCategory *quickReplyCategory = [UNNotificationCategory
+    //                                                   categoryWithIdentifier:@"QUICK_REPLY"
+    //                                                   actions:@[quickReply]
+    //                                                   intentIdentifiers:@[]
+    //                                                   options:UNNotificationCategoryOptionNone];
 
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        [center setNotificationCategories:[[NSSet alloc] initWithArray:@[quickReplyCategory]]];
-        [center setDelegate:self];
+    //     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    //     [center setNotificationCategories:[[NSSet alloc] initWithArray:@[quickReplyCategory]]];
+    //     [center setDelegate:self];
 
-        UNAuthorizationOptions authorizationOptions = (UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge);
+    //     UNAuthorizationOptions authorizationOptions = (UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge);
 
-        [center requestAuthorizationWithOptions:authorizationOptions
-                              completionHandler:^(BOOL granted, NSError *error)
-         { // code here is equivalent to self:application:didRegisterUserNotificationSettings:
-             if (granted)
-             {
-                 [self registerForRemoteNotificationsWithCompletion:nil];
-             }
-             else
-             {
-                 // Clear existing token
-                 [self clearPushNotificationToken];
-             }
-         }];
-    }
+    //     [center requestAuthorizationWithOptions:authorizationOptions
+    //                           completionHandler:^(BOOL granted, NSError *error)
+    //      { // code here is equivalent to self:application:didRegisterUserNotificationSettings:
+    //          if (granted)
+    //          {
+    //              [self registerForRemoteNotificationsWithCompletion:nil];
+    //          }
+    //          else
+    //          {
+    //              // Clear existing token
+    //              [self clearPushNotificationToken];
+    //          }
+    //      }];
+    // }
 }
 
 - (void)registerForRemoteNotificationsWithCompletion:(nullable void (^)(NSError *))completion

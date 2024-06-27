@@ -4595,7 +4595,7 @@ public class VectorL10n: NSObject {
   public static var onboardingSplashPage4TitleNoPun: String { 
     return VectorL10n.tr("Vector", "onboarding_splash_page_4_title_no_pun") 
   }
-  /// Create Accounnt
+  /// Create account
   public static var onboardingSplashRegisterButtonTitle: String { 
     return VectorL10n.tr("Vector", "onboarding_splash_register_button_title") 
   }
