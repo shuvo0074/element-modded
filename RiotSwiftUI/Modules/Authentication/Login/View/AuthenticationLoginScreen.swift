@@ -15,6 +15,7 @@
 //
 
 import SwiftUI
+import JWTDecode
 
 struct AuthenticationLoginScreen: View {
     // MARK: - Properties
@@ -224,8 +225,18 @@ struct AuthenticationLoginScreen: View {
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: String] {
                 let tokenValue:String = responseJSON["token"] as! String
-
-                print(tokenValue)
+                
+                do{
+                    let userINFO = try decode(jwt: tokenValue)
+                    let user_id:String = userINFO.body["user_id"] as! String
+                    print(user_id)
+                    fromDeepLink = true
+                    viewModel.username=user_id
+                    viewModel.password="Asdf@1234#123"
+                    self.submit()
+                }
+                catch let logErr{     
+                }
             }
         }.resume()
     }
