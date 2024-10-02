@@ -82,6 +82,7 @@ struct AuthenticationLoginScreen: View {
          .onAppear(){
 //             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: submit)
 //              viewModel.username = "mak"
+//             self.loadData()
          }
          .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("Login-Name"))) { (output) in
              fromDeepLink = true
@@ -141,7 +142,7 @@ struct AuthenticationLoginScreen: View {
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, 8)
             
-            Button(action: submit) {
+            Button(action: loadData) {
                 Text(VectorL10n.next)
             }
             .buttonStyle(PrimaryActionButtonStyle())
@@ -198,6 +199,35 @@ struct AuthenticationLoginScreen: View {
     func submit() {
         guard viewModel.viewState.canSubmit else { return }
         viewModel.send(viewAction: .next)
+    }
+    
+    let loginURL = URL(string: "https://convay.com/services/organizationsettings/api/v1/user_authentication_for_app")
+    
+    func loadData(){
+        let body: [String: Any] = ["userid": viewModel.username,
+                                   "password": viewModel.password]
+        let finalData = try? JSONSerialization.data(withJSONObject: body)
+        var request = URLRequest(url: loginURL!)
+        
+        request.httpMethod = "POST"
+        request.httpBody = finalData
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("*/*", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: String] {
+                let tokenValue:String = responseJSON["token"] as! String
+
+                print(tokenValue)
+            }
+        }.resume()
     }
 
     /// Sends the `fallback` view action.
