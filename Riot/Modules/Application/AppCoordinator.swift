@@ -115,18 +115,22 @@ final class AppCoordinator: NSObject, AppCoordinatorType {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.themeDidChange), name: Notification.Name.themeServiceDidChangeTheme, object: nil)
     }
-    
     func open(url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+//        let viewModel: AuthenticationLoginViewModel.Context
+
         // NOTE: As said in the Apple documentation be careful on security issues with Custom Scheme URL:
         // https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app
-        
-        do {
-            let deepLinkOption = try self.customSchemeURLParser.parse(url: url, options: options)
-            return self.handleDeepLinkOption(deepLinkOption)
-        } catch {
-            MXLog.debug("[AppCoordinator] Custom scheme URL parsing failed with error: \(error)")
-            return false
-        }
+        MXLog.debug(url,"=-==-----------------------------------===========")
+//        viewModel.username = "something"
+//        do {
+//            let deepLinkOption = try self.customSchemeURLParser.parse(url: url, options: options)
+//
+//            return self.handleDeepLinkOption(deepLinkOption)
+//        } catch {
+//            MXLog.debug("[AppCoordinator] Custom scheme URL parsing failed with error: \(error)")
+//            return false
+//        }
+        return true
     }
         
     // MARK: - Theme management

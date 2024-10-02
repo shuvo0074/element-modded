@@ -2302,7 +2302,7 @@ NSString *const AppDelegateUniversalLinkDidChangeNotification = @"AppDelegateUni
         if (isLaunching)
         {
             MXLogDebug(@"[AppDelegate] handleAppState: LaunchLoadingView");
-            [self showLaunchAnimation];
+            // [self showLaunchAnimation];
             return;
         }
         

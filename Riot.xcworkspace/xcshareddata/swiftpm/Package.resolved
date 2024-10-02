@@ -1,12 +1,13 @@
 {
+  "originHash" : "571a25e00e18f7c902b2b6bb9ca387cfd0cf5bbcdd5f54a18676eb2d73f0e7c3",
   "pins" : [
     {
       "identity" : "devicekit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/devicekit/DeviceKit",
       "state" : {
-        "revision" : "20e0991f3975916ab0f6d58db84d8bc64f883537",
-        "version" : "4.7.0"
+        "revision" : "d37e70cb2646666dcf276d7d3d4a9760a41ff8a6",
+        "version" : "4.9.0"
       }
     },
     {
@@ -77,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections",
       "state" : {
-        "revision" : "48254824bb4248676bf7ce56014ff57b142b77eb",
-        "version" : "1.0.2"
+        "revision" : "3d2dc41a01f9e49d84f0a3925fb858bed64f702d",
+        "version" : "1.1.2"
       }
     },
     {
@@ -91,5 +92,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

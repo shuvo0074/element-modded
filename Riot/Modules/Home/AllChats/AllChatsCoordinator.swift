@@ -104,6 +104,7 @@ class AllChatsCoordinator: NSObject, SplitViewMasterCoordinatorProtocol {
     }
         
     func start(with spaceId: String?) {
+        startLoading()
                 
         // If start has been done once do not setup view controllers again
         if self.hasStartedOnce == false {
@@ -125,6 +126,7 @@ class AllChatsCoordinator: NSObject, SplitViewMasterCoordinatorProtocol {
             let versionCheckCoordinator = createVersionCheckCoordinator(withRootViewController: allChatsViewController, bannerPresentrer: allChatsViewController)
             versionCheckCoordinator.start()
             self.add(childCoordinator: versionCheckCoordinator)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: hideAppStateIndicator)
         }
         
         self.allChatsViewController?.switchSpace(withId: spaceId)
@@ -202,6 +204,9 @@ class AllChatsCoordinator: NSObject, SplitViewMasterCoordinatorProtocol {
         let title = (error.userInfo[NSLocalizedFailureReasonErrorKey] as? String) ?? (msg ?? (localizedDescription ?? VectorL10n.error))
         
         indicators.append(self.indicatorPresenter.present(.failure(label: title)))
+    }
+    private func startLoading() {
+        appSateIndicator = self.indicatorPresenter.present(.loading(label: VectorL10n.loading, isInteractionBlocking: true))
     }
     
     func showAppStateIndicator(with text: String, icon: UIImage?) {

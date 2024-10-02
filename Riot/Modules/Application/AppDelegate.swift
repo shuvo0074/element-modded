@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Properties
 
     // MARK: Private
-
+    // let myUrlScheme = "com.synesisit.convay.chat"
     private var appCoordinator: AppCoordinatorType!
     private var rootRouter: RootRouterType!
 
@@ -100,6 +100,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+//        if let scheme = url.scheme,
+//                scheme.localizedCaseInsensitiveCompare(myUrlScheme) == .orderedSame,
+//                let view = url.host {
+//                var parameters: [String: String] = [:]
+//                URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
+//                    parameters[$0.name] = $0.value
+//                }
+////                redirect(to: view, with: parameters)
+//            
+//            }
         return self.appCoordinator.open(url: url, options: options)
     }
     

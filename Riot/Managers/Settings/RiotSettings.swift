@@ -110,7 +110,8 @@ final class RiotSettings: NSObject {
     
     /// Whether the user was previously shown the Matomo analytics prompt.
     var hasSeenAnalyticsPrompt: Bool {
-        RiotSettings.defaults.object(forKey: UserDefaultsKeys.enableAnalytics) != nil
+        // RiotSettings.defaults.object(forKey: UserDefaultsKeys.enableAnalytics) != nil
+        true
     }
     
     /// Whether the user has both seen the Matomo analytics prompt and declined it.
