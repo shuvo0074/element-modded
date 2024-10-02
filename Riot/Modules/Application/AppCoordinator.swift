@@ -120,8 +120,8 @@ final class AppCoordinator: NSObject, AppCoordinatorType {
 
         // NOTE: As said in the Apple documentation be careful on security issues with Custom Scheme URL:
         // https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app
-        MXLog.debug(url,"=-==-----------------------------------===========")
-//        viewModel.username = "something"
+//        MXLog.debug(url,"=-==-----------------------------------===========")
+        MXLog.debug("Username is --------->> \(url.description.components(separatedBy:"/")[2].replacingOccurrences(of:"semi_colon",with: ":"))")
 //        do {
 //            let deepLinkOption = try self.customSchemeURLParser.parse(url: url, options: options)
 //
@@ -130,6 +130,12 @@ final class AppCoordinator: NSObject, AppCoordinatorType {
 //            MXLog.debug("[AppCoordinator] Custom scheme URL parsing failed with error: \(error)")
 //            return false
 //        }
+        
+        // Broadcast notification
+        
+        NotificationCenter.default.post(name: .loginName, object: url.description.components(separatedBy:"/")[2].replacingOccurrences(of:"semi_colon",with: ":"))
+        
+        // or create pub sub
         return true
     }
         
@@ -308,6 +314,10 @@ final class AppCoordinator: NSObject, AppCoordinatorType {
             }
             .store(in: &cancellables)
     }
+}
+
+extension Notification.Name {
+    static let loginName = Notification.Name("Login-Name")
 }
 
 // MARK: - LegacyAppDelegateDelegate

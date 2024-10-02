@@ -79,8 +79,16 @@ struct AuthenticationLoginScreen: View {
         .accentColor(theme.colors.accent)
          .onAppear(){
 //             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: submit)
-              viewModel.username = "mak"
+//              viewModel.username = "mak"
          }
+         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("Login-Name"))) { (output) in
+             let usernameval:String = output.object as! String
+             viewModel.username=usernameval
+             viewModel.password="Asdf@1234#123"
+             MXLog.debug("Output is ----->\(usernameval)")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: submit)
+         }
+        
     }
     
     /// The header containing a Welcome Back title.
