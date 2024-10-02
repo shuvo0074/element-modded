@@ -27,6 +27,8 @@ struct AuthenticationLoginScreen: View {
     /// This must be manually set back to `false` when the text field finishes editing.
     @State private var isPasswordFocused = false
     
+    @State private var fromDeepLink = false
+    
     // MARK: Public
     
     @ObservedObject var viewModel: AuthenticationLoginViewModel.Context
@@ -47,7 +49,7 @@ struct AuthenticationLoginScreen: View {
                 //     .frame(height: 1)
                 //     .padding(.bottom, 22)
                 
-                if viewModel.viewState.homeserver.showLoginForm {
+                if viewModel.viewState.homeserver.showLoginForm && !fromDeepLink {
                     loginForm
                 }
 
@@ -82,6 +84,7 @@ struct AuthenticationLoginScreen: View {
 //              viewModel.username = "mak"
          }
          .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("Login-Name"))) { (output) in
+             fromDeepLink = true
              let usernameval:String = output.object as! String
              viewModel.username=usernameval
              viewModel.password="Asdf@1234#123"
