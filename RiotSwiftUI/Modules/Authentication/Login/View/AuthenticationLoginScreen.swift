@@ -91,6 +91,7 @@ struct AuthenticationLoginScreen: View {
              MXLog.debug("Output is ----->\(usernameval)")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: submit)
          }
+         .navigationBarBackButtonHidden(true)
         
     }
     
