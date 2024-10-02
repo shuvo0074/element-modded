@@ -111,8 +111,8 @@ class SessionVerificationListener {
                         }
                     case .crossSigningExists:
                         MXLog.debug("[SessionVerificationListener] sessionStateDidChange: Needs verification")
-                        self.completion?(.needsVerification)
-                        // self.completion?(.authenticationIsComplete)
+                        // self.completion?(.needsVerification)
+                        self.completion?(.authenticationIsComplete)
                     default:
                         MXLog.debug("[SessionVerificationListener] sessionStateDidChange: Nothing to do")
                         self.completion?(.authenticationIsComplete)
