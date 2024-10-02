@@ -103,7 +103,7 @@ final class BuildSettings: NSObject {
 
     /// Default server proposed on the authentication screen
     static var serverConfigDefaultHomeserverUrlString: String {
-        MDMSettings.serverConfigDefaultHomeserverUrlString ?? "https://matrix-convaychat.convay.com/"
+        MDMSettings.serverConfigDefaultHomeserverUrlString ?? "https://matrix.convay.com/"
     }
     
     /// Default identity server
