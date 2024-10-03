@@ -136,10 +136,10 @@ struct AuthenticationLoginScreen: View {
                                    onCommit: submit)
                 .accessibilityIdentifier("passwordTextField")
             
-            Button { viewModel.send(viewAction: .forgotPassword) } label: {
-                Text(VectorL10n.authenticationLoginForgotPassword)
-                    .font(theme.fonts.body)
-            }
+//            Button { viewModel.send(viewAction: .forgotPassword) } label: {
+//                Text(VectorL10n.authenticationLoginForgotPassword)
+//                    .font(theme.fonts.body)
+//            }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, 8)
             
