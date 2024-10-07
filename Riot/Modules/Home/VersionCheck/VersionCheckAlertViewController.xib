@@ -51,7 +51,7 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgc-27-11w">
                                             <rect key="frame" x="0.0" y="32.5" width="563" height="81.5"/>
-                                            <string key="text">We've been working on enhancing Element for a faster and more polished experience. Unfortunately your current version of iOS is not compatible with some of those fixes and will no longer be supported. We're advising you to upgrade your operating system to use Element to its full potential.</string>
+                                            <string key="text">We've been working on enhancing Convay Chat for a faster and more polished experience. Unfortunately your current version of iOS is not compatible with some of those fixes and will no longer be supported. We're advising you to upgrade your operating system to use Convay Chat to its full potential.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.45098039215686275" green="0.49019607843137253" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>

@@ -37,7 +37,7 @@
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="999" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btO-Jc-DmU">
                     <rect key="frame" x="44" y="44.5" width="387" height="48.5"/>
-                    <string key="text">We will soon be ending support for Element on iOS 11. To continue using Element to its full potential, we advise you to upgrade your version of iOS.</string>
+                    <string key="text">We will soon be ending support for Convay Chat on iOS 11. To continue using Convay Chat to its full potential, we advise you to upgrade your version of iOS.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.090196078431372548" green="0.098039215686274508" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
