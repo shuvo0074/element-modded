@@ -169,7 +169,7 @@ public class ElementView: UIView {
         _10242x.addSubview(path_1)
         _10242x.addSubview(path_2)
         _10242x.addSubview(path_3)
-        icon.addSubview(_10242x)
+//        icon.addSubview(_10242x)
         addSubview(icon)
     }
 }
