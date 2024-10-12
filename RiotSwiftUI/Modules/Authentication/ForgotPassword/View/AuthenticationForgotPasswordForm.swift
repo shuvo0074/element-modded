@@ -26,6 +26,8 @@ struct AuthenticationForgotPasswordForm: View {
     
     @State private var isEditingTextField = false
     
+    @State private var showOTP = false
+    
     // MARK: Public
     
     @ObservedObject var viewModel: AuthenticationForgotPasswordViewModel.Context
@@ -34,9 +36,11 @@ struct AuthenticationForgotPasswordForm: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            if !showOTP{
             header
                 .padding(.top, OnboardingMetrics.topPaddingToNavigationBar)
                 .padding(.bottom, 36)
+            }
             
             mainContent
         }
@@ -66,10 +70,21 @@ struct AuthenticationForgotPasswordForm: View {
     var mainContent: some View {
         VStack(alignment: .leading, spacing: 12) {
             if #available(iOS 15.0, *) {
+                if(showOTP){
+                    otpField
+                        .onSubmit(submit)
+                }
+                else {
                 textField
                     .onSubmit(submit)
+                }
             } else {
-                textField
+                if(showOTP){
+                 otpField
+                }
+                else {
+                    textField
+                }
             }
             
             Button(action: submit) {
@@ -88,6 +103,17 @@ struct AuthenticationForgotPasswordForm: View {
         }
         .textFieldStyle(BorderedInputFieldStyle(isEditing: isEditingTextField, isError: false))
         .keyboardType(.emailAddress)
+        .autocapitalization(.none)
+        .disableAutocorrection(true)
+        .accessibilityIdentifier("addressTextField")
+    }
+    
+    var otpField: some View {
+        TextField("Enter OTP", text: $viewModel.emailAddress) {
+            isEditingTextField = $0
+        }
+        .textFieldStyle(BorderedInputFieldStyle(isEditing: isEditingTextField, isError: false))
+        .keyboardType(.default)
         .autocapitalization(.none)
         .disableAutocorrection(true)
         .accessibilityIdentifier("addressTextField")
