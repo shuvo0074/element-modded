@@ -76,7 +76,7 @@ struct AuthenticationForgotPasswordForm: View {
                 }
                 else {
                 textField
-                    .onSubmit(submit)
+                    .onSubmit(sendOTP)
                 }
             } else {
                 if(showOTP){
@@ -87,7 +87,7 @@ struct AuthenticationForgotPasswordForm: View {
                 }
             }
             
-            Button(action: submit) {
+            Button(action: sendOTP) {
                 Text(VectorL10n.next)
             }
             .buttonStyle(PrimaryActionButtonStyle())
@@ -123,5 +123,32 @@ struct AuthenticationForgotPasswordForm: View {
     func submit() {
         guard !viewModel.viewState.hasInvalidAddress else { return }
         viewModel.send(viewAction: .send)
+    }
+    let loginURL = URL(string: "https://convay.com/services/organizationsettings/v1/forgot-password/app/email")
+
+    
+    func sendOTP(){
+        let body: [String: Any] = ["email": viewModel.emailAddress]
+        let finalData = try? JSONSerialization.data(withJSONObject: body)
+        var request = URLRequest(url: loginURL!)
+        
+        request.httpMethod = "POST"
+        request.httpBody = finalData
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("*/*", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            print("datata==>>>\(data)")
+            let response = response as? HTTPURLResponse
+            
+            let responseCode = response?.statusCode as! Int
+            
+            if responseCode == 200{
+                showOTP = true
+                viewModel.emailAddress = ""
+            }
+                viewModel.emailAddress = ""
+        }.resume()
     }
 }
