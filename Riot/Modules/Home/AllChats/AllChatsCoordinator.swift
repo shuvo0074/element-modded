@@ -340,9 +340,9 @@ class AllChatsCoordinator: NSObject, SplitViewMasterCoordinatorProtocol {
     private var avatarMenu: UIMenu {
         var actions: [UIMenuElement] = []
         
-        actions.append(UIAction(title: VectorL10n.allChatsUserMenuSettings, image: UIImage(systemName: "gearshape")) { [weak self] action in
-            self?.showSettings()
-        })
+        // actions.append(UIAction(title: VectorL10n.allChatsUserMenuSettings, image: UIImage(systemName: "gearshape")) { [weak self] action in
+        //     self?.showSettings()
+        // })
         
         var subMenuActions: [UIAction] = []
         if BuildSettings.sideMenuShowInviteFriends {
