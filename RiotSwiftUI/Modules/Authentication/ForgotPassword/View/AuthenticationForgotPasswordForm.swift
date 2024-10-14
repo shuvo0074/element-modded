@@ -27,6 +27,11 @@ struct AuthenticationForgotPasswordForm: View {
     @State private var isEditingTextField = false
     
     @State private var showOTP = false
+    @State private var showRESET = false
+    
+    @State private var otpValue = ""
+    @State private var newPassValue = ""
+    @State private var errorMessage = ""
     
     // MARK: Public
     
@@ -36,7 +41,7 @@ struct AuthenticationForgotPasswordForm: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            if !showOTP{
+            if !showOTP && !showRESET{
             header
                 .padding(.top, OnboardingMetrics.topPaddingToNavigationBar)
                 .padding(.bottom, 36)
@@ -69,12 +74,31 @@ struct AuthenticationForgotPasswordForm: View {
     /// The text field and submit button where the user enters an email address.
     var mainContent: some View {
         VStack(alignment: .leading, spacing: 12) {
+            if errorMessage.count > 0{
+                Text("Error! \(errorMessage)")
+                    .font(theme.fonts.body)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(theme.colors.alert)
+                    .accessibilityIdentifier("messageLabel")
+            }
+
+            if showRESET{
+                Text("Email is \(viewModel.emailAddress)")
+                    .font(theme.fonts.body)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(theme.colors.secondaryContent)
+                    .accessibilityIdentifier("messageLabel")
+            }
+            
             if #available(iOS 15.0, *) {
                 if(showOTP){
                     otpField
-                        .onSubmit(submit)
+                        .onSubmit(verifyOTP)
                 }
-                else {
+                else if showRESET {
+                newPasswordField
+                    .onSubmit(changePASS)
+                }else {
                 textField
                     .onSubmit(sendOTP)
                 }
@@ -82,16 +106,27 @@ struct AuthenticationForgotPasswordForm: View {
                 if(showOTP){
                  otpField
                 }
+                else if showRESET {
+                    newPasswordField
+                }
                 else {
                     textField
                 }
             }
             
-            Button(action: sendOTP) {
+            Button{
+                if showOTP {
+                    verifyOTP()
+                } else if showRESET {
+                    changePASS()
+                } else {
+                    sendOTP()
+                }
+            } label: {
                 Text(VectorL10n.next)
             }
             .buttonStyle(PrimaryActionButtonStyle())
-            .disabled(viewModel.viewState.hasInvalidAddress)
+            .disabled(viewModel.viewState.hasInvalidAddress || (showOTP && otpValue.count<4)||(showRESET&&newPassValue.isEmpty))
             .accessibilityIdentifier("nextButton")
         }
     }
@@ -109,11 +144,21 @@ struct AuthenticationForgotPasswordForm: View {
     }
     
     var otpField: some View {
-        TextField("Enter OTP", text: $viewModel.emailAddress) {
+        TextField("Enter OTP", text: $otpValue) {
             isEditingTextField = $0
         }
         .textFieldStyle(BorderedInputFieldStyle(isEditing: isEditingTextField, isError: false))
-        .keyboardType(.default)
+        .keyboardType(.numberPad)
+        .autocapitalization(.none)
+        .disableAutocorrection(true)
+        .accessibilityIdentifier("addressTextField")
+    }
+    var newPasswordField: some View {
+        TextField("Enter password", text: $newPassValue) {
+            isEditingTextField = $0
+        }
+        .textFieldStyle(BorderedInputFieldStyle(isEditing: isEditingTextField, isError: false))
+        .keyboardType(.numberPad)
         .autocapitalization(.none)
         .disableAutocorrection(true)
         .accessibilityIdentifier("addressTextField")
@@ -125,6 +170,8 @@ struct AuthenticationForgotPasswordForm: View {
         viewModel.send(viewAction: .send)
     }
     let loginURL = URL(string: "https://convay.com/services/organizationsettings/v1/forgot-password/app/email")
+    let otpURL = URL(string: "https://convay.com/services/organizationsettings/v1/forgot-password/app/match-otp")
+    let resetURL = URL(string: "https://convay.com/services/organizationsettings/v1/forgot-password/app/reset")
 
     
     func sendOTP(){
@@ -139,16 +186,100 @@ struct AuthenticationForgotPasswordForm: View {
         request.setValue("*/*", forHTTPHeaderField: "Accept")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            print("datata==>>>\(data)")
             let response = response as? HTTPURLResponse
             
             let responseCode = response?.statusCode as! Int
             
             if responseCode == 200{
                 showOTP = true
-                viewModel.emailAddress = ""
+                errorMessage = ""
             }
+            else {
                 viewModel.emailAddress = ""
+                let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
+                let resObj = responseJSON as! [String: Any]
+                let errorMSG  = resObj["message"] as! String
+                errorMessage = errorMSG
+
+            }
+        }.resume()
+    }
+    
+    func verifyOTP(){
+        let body: [String: Any] = [
+            "email": viewModel.emailAddress,
+            "otp": otpValue
+        ]
+        let finalData = try? JSONSerialization.data(withJSONObject: body)
+        var request = URLRequest(url: otpURL!)
+        
+        request.httpMethod = "POST"
+        request.httpBody = finalData
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("*/*", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            let resData = data 
+            
+            let response = response as? HTTPURLResponse
+            
+            let responseCode = response?.statusCode as! Int
+            
+            if responseCode == 200{
+                showOTP = false
+                showRESET = true
+                errorMessage = ""
+            }
+            else {
+                let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
+                let resObj = responseJSON as! [String: Any]
+                let errorMSG  = resObj["message"] as! String
+                errorMessage = errorMSG
+            }
+        }.resume()
+    }
+    
+    func changePASS(){
+        let body: [String: Any] = [
+            "email": viewModel.emailAddress,
+            "password": newPassValue,
+            "otp": otpValue
+        ]
+        let finalData = try? JSONSerialization.data(withJSONObject: body)
+        var request = URLRequest(url: resetURL!)
+        
+        request.httpMethod = "POST"
+        request.httpBody = finalData
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("*/*", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            
+            let response = response as? HTTPURLResponse
+
+            
+            let responseCode = response?.statusCode as! Int
+            
+            if responseCode == 200{
+                showOTP = false
+                showRESET = false
+                otpValue = ""
+                newPassValue = ""
+                errorMessage = ""
+                viewModel.send(viewAction: .cancel)
+                
+            }
+            else {
+                let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
+                let resObj = responseJSON as! [String: Any]
+                let errorMSG  = resObj["message"] as! String
+                errorMessage = errorMSG
+
+            }
         }.resume()
     }
 }
