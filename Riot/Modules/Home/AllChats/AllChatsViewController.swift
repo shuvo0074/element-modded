@@ -75,7 +75,7 @@ class AllChatsViewController: HomeViewController {
     }
 
     @IBOutlet private var toolbar: UIToolbar!
-    private var isToolbarHidden: Bool = false {
+    private var isToolbarHidden: Bool = true {
         didSet {
             if isViewLoaded {
                 toolbar.transform = isToolbarHidden ? CGAffineTransform(translationX: 0, y: 2 * toolbarHeight) : .identity
@@ -86,7 +86,7 @@ class AllChatsViewController: HomeViewController {
     
     private func setToolbarHidden(_ isHidden: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? 0.3 : 0) {
-            self.isToolbarHidden = isHidden
+            self.isToolbarHidden = true
         }
 
     }
@@ -388,7 +388,7 @@ class AllChatsViewController: HomeViewController {
         let scrollPosition = scrollPosition(of: scrollView)
         
         if !self.recentsTableView.isDragging && scrollPosition == 0 && self.isToolbarHidden == true {
-            self.setToolbarHidden(false, animated: true)
+            self.setToolbarHidden(true, animated: true)
         }
 
         guard self.recentsTableView.isDragging else {
@@ -401,7 +401,7 @@ class AllChatsViewController: HomeViewController {
 
         let isToolBarHidden: Bool = scrollPosition - initialScrollPosition > 0
         if isToolBarHidden != self.isToolbarHidden {
-            self.setToolbarHidden(isToolBarHidden, animated: true)
+            self.setToolbarHidden(true, animated: true)
         }
     }
     
@@ -545,7 +545,7 @@ class AllChatsViewController: HomeViewController {
             return
         }
         
-        self.isToolbarHidden = false
+        self.isToolbarHidden = true
         self.update(with: theme)
         
         self.toolbar.items = [
