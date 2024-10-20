@@ -37,9 +37,15 @@ struct AuthenticationLoginScreen: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                // header
-                //     .padding(.top, OnboardingMetrics.topPaddingToNavigationBar)
-                //     .padding(.bottom, 28)
+                 header
+                     .padding(.top, OnboardingMetrics.topPaddingToNavigationBar)
+                     .padding(.bottom, 28)
+                Text("Start your conversation,and stay connected with ease.")
+                    .font(theme.fonts.title3SB)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(theme.colors.primaryContent)
+                    .padding(.bottom, 40)
+                
                 
                 // serverInfo
                 //     .padding(.leading, 12)
@@ -99,7 +105,7 @@ struct AuthenticationLoginScreen: View {
     
     /// The header containing a Welcome Back title.
     var header: some View {
-        Text(VectorL10n.authenticationLoginTitle)
+        Text("Convay Chat")
             .font(theme.fonts.title2B)
             .multilineTextAlignment(.center)
             .foregroundColor(theme.colors.primaryContent)
