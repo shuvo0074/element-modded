@@ -80,7 +80,7 @@ struct ThemableTextField: UIViewRepresentable {
     func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.backgroundColor = .clear
         uiView.font = UIFont.preferredFont(forTextStyle: .callout)
-        uiView.textColor = UIColor(theme.colors.primaryContent)
+        uiView.textColor = UIColor(.white)
         uiView.tintColor = UIColor(theme.colors.accent)
 
         if uiView.text != text {
