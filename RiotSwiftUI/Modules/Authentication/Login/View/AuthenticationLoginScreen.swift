@@ -14,6 +14,10 @@
 // limitations under the License.
 //
 
+
+// TODO: change font size for subtext
+// TODO: change btn bg color for disabled state
+
 import SwiftUI
 import JWTDecode
 import SDWebImageSwiftUI
@@ -153,6 +157,7 @@ struct AuthenticationLoginScreen: View {
            Button { viewModel.send(viewAction: .forgotPassword) } label: {
                Text(VectorL10n.authenticationLoginForgotPassword)
                    .font(theme.fonts.body)
+                   .foregroundColor(theme.colors.tile)
            }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, 8)

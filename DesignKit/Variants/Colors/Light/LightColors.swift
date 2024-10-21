@@ -33,7 +33,7 @@ public class LightColors {
         quinaryContent: UIColor(rgb:0xE3E8F0),
         separator: UIColor(red: 0.176470588, green: 0.176470588, blue: 0.176470588, alpha: 1),
         system: UIColor(rgb:0xF4F6FA),
-        tile: UIColor(rgb:0xF3F8FD),
+        tile: UIColor(red: 0.470588235, green: 0.439215686, blue: 0.670588235, alpha: 1),
         navigation: UIColor(rgb:0xF4F6FA),
         background: UIColor(rgb:0xFFFFFF),
         ems: UIColor(red: 0.568627451, green: 0.568627451, blue: 0.568627451, alpha: 1),
