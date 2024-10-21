@@ -56,7 +56,7 @@ struct RoundedBorderTextField: View {
                 if text.isEmpty {
                     Text(placeHolder)
                         .font(theme.fonts.callout)
-                        .foregroundColor(theme.colors.tertiaryContent)
+                        .foregroundColor(theme.colors.ems)
                         .lineLimit(1)
                         .accessibilityHidden(true)
                 }
@@ -99,11 +99,11 @@ struct RoundedBorderTextField: View {
     /// The text field's border color.
     private var borderColor: Color {
         if isEditing {
-            return theme.colors.accent
+            return theme.colors.quinaryContent
         } else if footerText != nil, isError {
             return theme.colors.alert
         } else {
-            return theme.colors.quinaryContent
+            return theme.colors.separator
         }
     }
     
