@@ -22,9 +22,11 @@ import SwiftUI
 /// Light theme colors.
 public class LightColors {
     private static let values = ColorValues(
-        accent: UIColor(rgb:0x0DBD8B),
+//        accent: UIColor(rgb:0x0DBD8B),
+        accent: UIColor(red: 0.219607843, green: 0.17254902, blue: 0.51372549, alpha: 1),
         alert: UIColor(rgb:0xFF4B55),
-        primaryContent: UIColor(rgb:0x17191C),
+//        primaryContent: UIColor(rgb:0x0DBD8B),
+        primaryContent: UIColor(red: 0.0823529412, green: 0.0941176471, blue: 0.11372549, alpha: 1),
         secondaryContent: UIColor(rgb:0x737D8C),
         tertiaryContent: UIColor(rgb:0x8D97A5),
         quarterlyContent: UIColor(rgb:0xC1C6CD),
