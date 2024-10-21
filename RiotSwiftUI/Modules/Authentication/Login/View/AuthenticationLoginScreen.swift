@@ -46,10 +46,10 @@ struct AuthenticationLoginScreen: View {
                  header
                      .padding(.top, OnboardingMetrics.topPaddingToNavigationBar)
                      .padding(.bottom, 8)
-                Text("Start your conversation,and stay connected with ease.")
-                    .font(theme.fonts.title3SB)
+                Text("Start your conversation,\nand stay connected with ease.")
+                    .font(theme.fonts.callout)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(theme.colors.primaryContent)
+                    .foregroundColor(.white)
                     .padding(.bottom, 40)
                 
                 
@@ -89,7 +89,7 @@ struct AuthenticationLoginScreen: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
         }
-        .background(theme.colors.background.ignoresSafeArea())
+        .background(theme.colors.primaryContent)
         .alert(item: $viewModel.alertInfo) { $0.alert }
         .accentColor(theme.colors.accent)
          .onAppear(){
@@ -112,9 +112,9 @@ struct AuthenticationLoginScreen: View {
     /// The header containing a Welcome Back title.
     var header: some View {
         Text("Convay Chat")
-            .font(theme.fonts.title2B)
+            .font(theme.fonts.title1B)
             .multilineTextAlignment(.center)
-            .foregroundColor(theme.colors.primaryContent)
+            .foregroundColor(.white)
     }
     
     /// The sever information section that includes a button to select a different server.
@@ -128,7 +128,7 @@ struct AuthenticationLoginScreen: View {
     /// The form with text fields for username and password, along with a submit button.
     var loginForm: some View {
         VStack(spacing: 14) {
-            RoundedBorderTextField(placeHolder: VectorL10n.authenticationLoginUsername,
+            RoundedBorderTextField(placeHolder: "Username / Email",
                                    text: $viewModel.username,
                                    isFirstResponder: false,
                                    configuration: UIKitTextInputConfiguration(returnKeyType: .next,
@@ -138,6 +138,7 @@ struct AuthenticationLoginScreen: View {
                                    onCommit: { isPasswordFocused = true })
                 .accessibilityIdentifier("usernameTextField")
                 .padding(.bottom, 7)
+                .background(theme.colors.primaryContent)
             
             RoundedBorderTextField(placeHolder: VectorL10n.authPasswordPlaceholder,
                                    text: $viewModel.password,
@@ -147,6 +148,7 @@ struct AuthenticationLoginScreen: View {
                                    onEditingChanged: passwordEditingChanged,
                                    onCommit: submit)
                 .accessibilityIdentifier("passwordTextField")
+                .background(theme.colors.primaryContent)
             
            Button { viewModel.send(viewAction: .forgotPassword) } label: {
                Text(VectorL10n.authenticationLoginForgotPassword)
@@ -156,7 +158,7 @@ struct AuthenticationLoginScreen: View {
             .padding(.bottom, 8)
             
             Button(action: loadData) {
-                Text(VectorL10n.next)
+                Text(VectorL10n.authLoginSingleSignOn)
             }
             .buttonStyle(PrimaryActionButtonStyle())
             .disabled(!viewModel.viewState.canSubmit)
