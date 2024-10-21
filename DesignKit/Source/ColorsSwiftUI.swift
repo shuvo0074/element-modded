@@ -51,6 +51,8 @@ public struct ColorSwiftUI: Colors {
     public let links: Color
     
     public let namesAndAvatars: [Color]
+    
+    public let disabledText: Color
         
     init(values: ColorValues) {
         accent = Color(values.accent)
@@ -68,5 +70,6 @@ public struct ColorSwiftUI: Colors {
         ems = Color(values.ems)
         links = Color(values.links)
         namesAndAvatars = values.namesAndAvatars.map({ Color($0) })
+        disabledText = Color(values.disabledText)
     }
 }

@@ -47,7 +47,8 @@ public class LightColors {
             UIColor(rgb:0x2DC2C5),
             UIColor(rgb:0x5C56F5),
             UIColor(rgb:0x74D12C)
-        ]
+        ],
+        disabledText: UIColor(red: 0.450980392, green: 0.454901961, blue: 0.466666667, alpha: 1)
     )
     
     public static var uiKit = ColorsUIKit(values: values)

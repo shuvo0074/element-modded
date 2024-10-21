@@ -51,4 +51,6 @@ public struct ColorValues: Colors {
     public let links: UIColor
     
     public let namesAndAvatars: [UIColor]
+    
+    public let disabledText: UIColor
 }

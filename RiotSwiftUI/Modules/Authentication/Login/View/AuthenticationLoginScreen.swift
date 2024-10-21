@@ -158,7 +158,15 @@ struct AuthenticationLoginScreen: View {
             .padding(.bottom, 8)
             
             Button(action: loadData) {
+                if viewModel.viewState.canSubmit{
                 Text(VectorL10n.authLoginSingleSignOn)
+                    .foregroundColor(.white)
+                }
+                else{
+                    Text(VectorL10n.authLoginSingleSignOn)
+                        .foregroundColor(theme.colors.disabledText)
+
+                }
             }
             .buttonStyle(PrimaryActionButtonStyle())
             .disabled(!viewModel.viewState.canSubmit)
