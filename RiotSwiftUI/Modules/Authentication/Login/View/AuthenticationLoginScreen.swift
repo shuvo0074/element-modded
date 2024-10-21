@@ -16,6 +16,7 @@
 
 import SwiftUI
 import JWTDecode
+import SDWebImageSwiftUI
 
 struct AuthenticationLoginScreen: View {
     // MARK: - Properties
@@ -30,6 +31,8 @@ struct AuthenticationLoginScreen: View {
     
     @State private var fromDeepLink = false
     
+    @State private var isAnimating: Bool = true
+    
     // MARK: Public
     
     @ObservedObject var viewModel: AuthenticationLoginViewModel.Context
@@ -37,9 +40,12 @@ struct AuthenticationLoginScreen: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
+                AnimatedImage(name:"chatLogin.gif",isAnimating:$isAnimating)
+                    .padding(.horizontal,100)
+                    .padding(.bottom,20)
                  header
                      .padding(.top, OnboardingMetrics.topPaddingToNavigationBar)
-                     .padding(.bottom, 28)
+                     .padding(.bottom, 8)
                 Text("Start your conversation,and stay connected with ease.")
                     .font(theme.fonts.title3SB)
                     .multilineTextAlignment(.center)

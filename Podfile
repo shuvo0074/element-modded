@@ -68,6 +68,7 @@ abstract_target 'RiotPods' do
   pod 'Reusable', '~> 4.1'
   pod 'KeychainAccess', '~> 4.2.2'
   pod 'WeakDictionary', '~> 2.0'
+  pod 'SDWebImage', '~> 5.0'
 
   # PostHog for analytics
   pod 'PostHog', '~> 2.0.0'
