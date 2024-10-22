@@ -21,18 +21,18 @@ import SwiftUI
 /// Dark theme colors.
 public class DarkColors {
     private static let values = ColorValues(
-        accent: UIColor(rgb:0x0DBD8B),
+        accent: UIColor(red: 0.219607843, green: 0.17254902, blue: 0.51372549, alpha: 1),
         alert: UIColor(rgb:0xFF4B55),
-        primaryContent: UIColor(rgb:0xFFFFFF),
-        secondaryContent: UIColor(rgb:0xA9B2BC),
-        tertiaryContent: UIColor(rgb:0x8E99A4),
-        quarterlyContent: UIColor(rgb:0x6F7882),
-        quinaryContent: UIColor(rgb:0x394049),
+        primaryContent: UIColor(red: 0.0823529412, green: 0.0941176471, blue: 0.11372549, alpha: 1),
+        secondaryContent: UIColor(rgb:0x737D8C),
+        tertiaryContent: UIColor(rgb:0x8D97A5),
+        quarterlyContent: UIColor(rgb:0xC1C6CD),
+        quinaryContent: UIColor(rgb:0xE3E8F0),
         separator: UIColor(red: 0.176470588, green: 0.176470588, blue: 0.176470588, alpha: 1),
-        system: UIColor(rgb:0x21262C),
+        system: UIColor(rgb:0xF4F6FA),
         tile: UIColor(red: 0.470588235, green: 0.439215686, blue: 0.670588235, alpha: 1),
-        navigation: UIColor(rgb:0x21262C),
-        background: UIColor(rgb:0x15191E),
+        navigation: UIColor(rgb:0xF4F6FA),
+        background: UIColor(rgb:0xFFFFFF),
         ems: UIColor(red: 0.568627451, green: 0.568627451, blue: 0.568627451, alpha: 1),
         links: UIColor(rgb: 0x0086E6),
         namesAndAvatars: [
