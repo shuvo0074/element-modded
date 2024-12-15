@@ -31,8 +31,8 @@ Pods/
 
 ## Ignore project files as we generate them with xcodegen (https://github.com/yonaskolb/XcodeGen)
 # Plus ridiculous workaround to unignore the Package.resolved file for SwiftPM.
-*.xcodeproj
-*.xcworkspace/*
+# *.xcodeproj
+# *.xcworkspace/*
 !Riot.xcworkspace/xcshareddata
 Riot.xcworkspace/xcshareddata/*
 !Riot.xcworkspace/xcshareddata/swiftpm/
